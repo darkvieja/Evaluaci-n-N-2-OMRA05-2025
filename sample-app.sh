@@ -17,6 +17,16 @@ echo "EXPOSE 6789" >> tempdir/Dockerfile
 echo "CMD python /home/myapp/sample_app.py" >> tempdir/Dockerfile
 
 cd tempdir
+
+echo "Construyendo imagen Docker..."
 docker build -t sampleapp .
+
+echo "Deteniendo contenedor anterior si existe..."
+docker rm -f samplerunning || true
+
+echo "Ejecutando contenedor sampleapp en el puerto 6789..."
 docker run -t -d -p 6789:6789 --name samplerunning sampleapp
-docker ps -a 
+
+echo "Contenedores actuales:"
+docker ps -a
+ 
